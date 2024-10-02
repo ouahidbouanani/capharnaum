@@ -23,6 +23,9 @@ export default {
                     localStorage.setItem('username', JSON.parse(response.data.user).prenom);
                     router.push('/home');
                 }
+                if (response.status === 201) {
+                    errorMessage.value = response.data;
+                }
             } catch (error) {
                 errorMessage.value = error.response?.data || "Erreur lors de la connexion.";
             }

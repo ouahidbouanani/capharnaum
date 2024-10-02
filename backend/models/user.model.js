@@ -68,11 +68,9 @@ userSchema.statics.login = async function (email, password) {
     if (auth) {
       return user;
     }
-    throw Error("incorrect password");
+    throw Error("Le mot de passe fourni est incorrect.");
   }
-  throw Error(
-    "Aucun compte trouvé avec cet email. Veuillez créer un nouveau compte"
-  );
+  throw Error("Aucun compte n'est associé à cet email. Nous vous invitons à en créer un.");
 };
 
 const UserModel = mongoose.model("user", userSchema);

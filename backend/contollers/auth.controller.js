@@ -89,13 +89,14 @@ module.exports.signIn = async (req, res) => {
   try {
     const user = await UserModel.login(email, password);
     if (!user.isConfirmed) res.status(402).send("email non confirmé");
+
     else {
       const token = createToken(user._id);
       res.cookie("jwt", token, { httpOnly: true, maxAge });
       res.status(200).json({ token: token, user: JSON.stringify(user) });
     }
   } catch (err) {
-    res.status(200).json(err.message);
+    res.status(201).json(err.message);
   }
 };
 
