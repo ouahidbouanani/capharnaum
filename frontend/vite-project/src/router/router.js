@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from '../views/Home.vue';
+import NewEventForm from '../views/NewEventForm.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
@@ -18,6 +19,12 @@ const routes = [
     path: "/home",
     name: "Home",
     component: Home,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/newevent",
+    name: "NewEventForm",
+    component: NewEventForm,
     meta: { requiresAuth: true },
   },
   {

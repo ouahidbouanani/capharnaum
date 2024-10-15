@@ -5,11 +5,15 @@ const bcrypt = require("bcrypt");
 // events.model.js
 
 const eventSchema = new mongoose.Schema({
-    titre: {
+    label: {
         type: String,
         required: true,
     },
-    discipline: {
+    category: {
+        type: String,
+        required: true,
+    },
+    owner: {
         type: String,
         required: true,
     },
@@ -17,11 +21,15 @@ const eventSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    horaire: { 
+    time: { 
         type: String, 
         required: true 
     },
-    lieu: {
+    place: {
+        type: String,
+        required: true,
+    },
+    image: {
         type: String,
         required: true,
     },

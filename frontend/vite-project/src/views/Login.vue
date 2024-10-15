@@ -19,7 +19,7 @@ export default {
             .then((response) => {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('username', JSON.parse(response.data.user).prenom);
+                    localStorage.setItem('user', response.data.user);
                     router.push('/home');
                 } else if (response.status === 201) {
                     errorMessage.value = response.data;
@@ -78,8 +78,16 @@ export default {
 
 <style scoped>
     .center-form {
-        max-width: 400px;
+        max-width: 80%;
         margin: 0 auto;
         padding-top: 100px;
+    }
+
+    h2 {
+        margin-bottom: 25px;
+    }
+
+    .btn-create-event {
+        margin-top: 25px;
     }
 </style>

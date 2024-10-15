@@ -1,19 +1,19 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-        <a class="navbar-brand" href="#">Capharnaum</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <router-link @click="logout" to="/login" class="btn btn-primary">
-                Logout
-                </router-link>
-            </li>
-            </ul>
-        </div>
+            <a class="navbar-brand" href="#">Capharnaum</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <router-link @click="logout" to="/login" class="btn btn-primary">
+                        Logout
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -23,109 +23,51 @@
 
     <v-container class="mt-5">
         <v-row>
-            <v-col v-for="(event, index) in events" :key="index" cols="12" md="6">
-                <v-card hover class="mx-auto event-card" max-width="500" elevation="8">
-                    <v-img class="event-image" :src="event.image" alt="Event image"></v-img>
-                
-                    <v-card-title>{{ event.nom }}</v-card-title>
-                    <v-card-subtitle>{{ event.discipline }}</v-card-subtitle>
-                
-                    <v-card-text>
-                        <p><strong>Horaires:</strong> {{ event.horaires }}</p>
-                        <p><strong>Lieu:</strong> {{ event.lieu }}</p>
-                    </v-card-text>
-
-                    <v-card-actions>
-                        <v-btn variant="tonal">S'inscrire</v-btn>
-                        <v-btn variant="tonal" >Envoyer un message</v-btn>
-                    </v-card-actions>
+            <v-col v-for="(event, index) in events" :key="index" cols="6" md="6">
+                <v-card hover class="mx-auto event-card" max-width="500" elevation="0">
+                    <v-img class="event-image" :src="event.image" alt="Event image" style="object-fit: cover;"></v-img>
+                    <v-card-title style="white-space: normal;"><strong>{{ event.label }}</strong><br>par {{ event.owner }}</v-card-title>
+                    <v-card-subtitle style="white-space: normal;">{{ event.place }}</v-card-subtitle>
                 </v-card>
             </v-col>
         </v-row>
     </v-container>
+
+    <router-link to="/newevent">
+        <button class="btn btn-primary btn-add-event">
+            <v-icon>mdi-plus</v-icon>
+        </button>
+    </router-link>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'Home',
     data() {
         return {
             username: '',
-            events: [
-                {
-                    nom: 'event1_nom',
-                    discipline: 'event1_discipline',
-                    horaires: 'event1_horaires',
-                    lieu: 'event1_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event2_nom',
-                    discipline: 'event2_discipline',
-                    horaires: 'event2_horaires',
-                    lieu: 'event2_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event3_nom',
-                    discipline: 'event3_discipline',
-                    horaires: 'event3_horaires',
-                    lieu: 'event3_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event4_nom',
-                    discipline: 'event4_discipline',
-                    horaires: 'event4_horaires',
-                    lieu: 'event4_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event5_nom',
-                    discipline: 'event5_discipline',
-                    horaires: 'event5_horaires',
-                    lieu: 'event5_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event6_nom',
-                    discipline: 'event6_discipline',
-                    horaires: 'event6_horaires',
-                    lieu: 'event6_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event7_nom',
-                    discipline: 'event7_discipline',
-                    horaires: 'event7_horaires',
-                    lieu: 'event7_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event8_nom',
-                    discipline: 'event8_discipline',
-                    horaires: 'event8_horaires',
-                    lieu: 'event8_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-                {
-                    nom: 'event9_nom',
-                    discipline: 'event9_discipline',
-                    horaires: 'event9_horaires',
-                    lieu: 'event9_lieu',
-                    image: 'https://sgu.ovh/matt/capharnaum/event.png'
-                },
-            ]
+            events: [],
         };
     },
     mounted() {
-        this.username = localStorage.getItem('username') || 'Utilisateur';
+        this.username = JSON.parse(localStorage.getItem('user')).prenom || 'Utilisateur';
+        
+        axios.get('http://localhost:5001/api/events')
+        .then((response) => {
+            if (response.status === 200) {
+                this.events = response.data;
+            } else if (response.status === 201) {
+                console.log("Erreur lors de la récupération du catalogue des événements :/");
+            }
+        });
     },
     methods: {
         logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        this.$router.push('/login');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            this.$router.push('/login');
         }
     }
 }
@@ -141,18 +83,41 @@ export default {
     margin-top: 20px;
 }
 
+.event-card {
+    border-radius: 30px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, .8);
+}
+
 .event-image {
-    height: 10%;
+    border-radius: 30px;
+}
+
+.v-card-title, .v-card-subtitle {
+    padding: 10px 5px;
+}
+
+.v-card-title {
+    font-weight: bold;
+    font-size: .8rem;
+}
+
+.v-card-subtitle {
+    font-size: .7rem;
+    padding-top: 0;
 }
 
 .v-card-actions {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-end;
 }
 
-.v-card-actions button {
-    background-color: #353C86;
-    color: white;
+.btn-add-event {
+    position: fixed;
+    bottom: 30px;
+    right: 50%;
+    transform: translateX(50%);
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.2);
 }
-</style>  
+</style> 

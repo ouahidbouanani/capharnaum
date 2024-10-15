@@ -4,11 +4,13 @@ const Event = require('../models/events.model');
 //  ajouter un événement
 router.post('/add', (req, res) => {
     const newEvent = new Event({
-        titre: req.body.titre,
-        discipline: req.body.discipline,
+        label: req.body.label,
+        category: req.body.category,
+        owner: req.body.owner,
         date: req.body.date,
-        horaire: req.body.horaire,
-        lieu: req.body.lieu,
+        time: req.body.time,
+        place: req.body.place,
+        image: req.body.image
     });
 
     newEvent.save()

@@ -6,3 +6,7 @@
 a {
   text-decoration: none;
 }
+
+button {
+  color: white !important;
+}
