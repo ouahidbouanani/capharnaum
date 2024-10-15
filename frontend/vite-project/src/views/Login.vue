@@ -11,24 +11,23 @@ export default {
         const errorMessage = ref('');
         const router = useRouter();
 
-        const login = async () => {
-            try {
-                const response = await axios.post('http://localhost:5001/api/user/login', {
-                    email: email.value,
-                    password: password.value
-                });
-
+        const login = () => {
+            axios.post('http://localhost:5001/api/user/login', {
+                email: email.value,
+                password: password.value
+            })
+            .then((response) => {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('username', JSON.parse(response.data.user).prenom);
                     router.push('/home');
-                }
-                if (response.status === 201) {
+                } else if (response.status === 201) {
                     errorMessage.value = response.data;
                 }
-            } catch (error) {
+            })
+            .catch((error) => {
                 errorMessage.value = error.response?.data || "Erreur lors de la connexion.";
-            }
+            });
         };
 
         return {
