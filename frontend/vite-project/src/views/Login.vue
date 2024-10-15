@@ -51,7 +51,7 @@ export default {
         <h2 class="text-center">Connexion</h2>
 
         <!-- Affichage du message d'erreur -->
-        <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
+        
 
         <form @submit.prevent="login">
             <div class="mb-3">
@@ -66,6 +66,7 @@ export default {
                 <button type="submit" class="btn btn-primary">Connexion</button>
             </div>
         </form>
+        <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
 
         <router-link to="/register">
             <p class="text-center mt-3">

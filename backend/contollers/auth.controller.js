@@ -28,8 +28,8 @@ module.exports.signUp = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail", // ou un autre service
       auth: {
-        user: "bouananiouahid@gmail.com", // ton adresse email
-        pass: "njxiepkddcyrcqaf", // ton mot de passe ou un mot de passe d'application
+        user: "bouananiouahid@gmail.com", //  adresse email
+        pass: "njxiepkddcyrcqaf", // un mot de passe d'application
       },
     });
 
