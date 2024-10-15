@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 
 const useRoutes = require('./routes/user.routes');
+const eventsRoutes = require ('./routes/events.routes');
 require("dotenv").config({ path: './config/.env' });
 require('./config/db');
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/user', useRoutes);
+app.use('/api/events', eventsRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT} ...`);

@@ -1,0 +1,72 @@
+[
+    {
+        "titre": "Cours de Danse Contemporaine",
+        "discipline": "Danse",
+        "date": "10 novembre 2024",
+        "horaire": "18h - 20h",
+        "lieu": "Studio de Danse, 12 Rue des Capucins, 69001 Lyon"
+    },
+    {
+        "titre": "Atelier de Peinture Acrylique",
+        "discipline": "Arts Visuels",
+        "date": "12 novembre 2024",
+        "horaire": "14h - 17h",
+        "lieu": "La Maison des Arts, 5 Rue de l'Université, 69007 Lyon"
+    },
+    {
+        "titre": "Séance d'Entraînement de Boxe",
+        "discipline": "Sport",
+        "date": "15 novembre 2024",
+        "horaire": "19h - 21h",
+        "lieu": "Salle de Boxe, 20 Avenue des Frères Lumière, 69008 Lyon"
+    },
+    {
+        "titre": "Concert de Musique Classique",
+        "discipline": "Musique",
+        "date": "18 novembre 2024",
+        "horaire": "20h - 22h",
+        "lieu": "Auditorium de Lyon, 149 Rue Garibaldi, 69003 Lyon"
+    },
+    {
+        "titre": "Projection de Film Indépendant",
+        "discipline": "Cinéma",
+        "date": "20 novembre 2024",
+        "horaire": "19h - 21h",
+        "lieu": "Cinéma Le Comoedia, 13 Avenue Berthelot, 69007 Lyon"
+    },
+    {
+        "titre": "Atelier de Cuisine Italienne",
+        "discipline": "Gastronomie",
+        "date": "25 novembre 2024",
+        "horaire": "10h - 13h",
+        "lieu": "L'Atelier des Chefs, 6 Rue de la République, 69001 Lyon"
+    },
+    {
+        "titre": "Séance de Yoga en Plein Air",
+        "discipline": "Bien-être",
+        "date": "1 décembre 2024",
+        "horaire": "9h - 10h30",
+        "lieu": "Parc de la Tête d'Or, 69006 Lyon"
+    },
+    {
+        "titre": "Cours de Photographie Numérique",
+        "discipline": "Arts Visuels",
+        "date": "5 décembre 2024",
+        "horaire": "15h - 17h",
+        "lieu": "Centre Culturel de la Photographie, 28 Rue de la Charité, 69002 Lyon"
+    },
+    {
+        "titre": "Festival de Jazz",
+        "discipline": "Musique",
+        "date": "10 décembre 2024",
+        "horaire": "18h - 23h",
+        "lieu": "Théâtre du Musical, 1 Rue de l'Université, 69007 Lyon"
+    },
+    {
+        "titre": "Atelier de Sculpture en Argile",
+        "discipline": "Arts Plastiques",
+        "date": "12 décembre 2024",
+        "horaire": "14h - 17h",
+        "lieu": "Espace des Créateurs, 4 Quai de la Pêcherie, 69001 Lyon"
+    }
+]
