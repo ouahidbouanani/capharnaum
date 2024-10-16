@@ -1,21 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Capharnaum</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <router-link @click="logout" to="/login" class="btn btn-primary">
-                        Logout
-                        </router-link>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <navbar></navbar>
 
     <div class="container mt-5 text-center">
         <h1>Bienvenue {{username}}</h1>
@@ -41,10 +25,15 @@
 </template>
 
 <script>
+
+import navbar from "../components/navbar.vue";
 import axios from 'axios';
 
 export default {
     name: 'Home',
+    components: {
+        navbar
+    },
     data() {
         return {
             username: '',
@@ -62,13 +51,6 @@ export default {
                 console.log("Erreur lors de la récupération du catalogue des événements :/");
             }
         });
-    },
-    methods: {
-        logout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            this.$router.push('/login');
-        }
     }
 }
 </script>
