@@ -43,11 +43,9 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Capharnaum</a>
-        </div>
-    </nav>
+    <div id="logo">
+        <img src="../../public/favicon.png" alt="Capharnaüm Logo">
+    </div>
 
     <div class="container center-form">
         <h2 class="text-center">Inscription</h2>
@@ -83,12 +81,30 @@ export default {
 </template>
 
 <style scoped>
-  .center-form {
-      max-width: 400px;
-      margin: 0 auto;
-      padding-top: 100px;
-  }
-  .back-to-login {
-      margin-top: 20px;
-  }
+.center-form {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    margin-top: 20px;
+}
+
+.back-to-login {
+    margin-top: 10px;
+    background-color: #60a6a0;
+    border: 0;
+}
+
+div#logo {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+img {
+    width: 50px;
+    margin: auto;
+}
 </style>

@@ -41,17 +41,12 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Capharnaum</a>
-        </div>
-    </nav>
+    <div id="logo">
+        <img src="../../public/favicon.png" alt="Capharnaüm Logo">
+    </div>
 
     <div class="container center-form">
         <h2 class="text-center">Connexion</h2>
-
-        <!-- Affichage du message d'erreur -->
-        
 
         <form @submit.prevent="login">
             <div class="mb-3">
@@ -80,7 +75,6 @@ export default {
     .center-form {
         max-width: 80%;
         margin: 0 auto;
-        padding-top: 100px;
     }
 
     h2 {
@@ -89,5 +83,17 @@ export default {
 
     .btn-primary {
         margin-top: 100px;
+    }
+
+    div#logo {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+    }
+
+    img {
+        width: 50px;
+        margin: auto;
     }
 </style>

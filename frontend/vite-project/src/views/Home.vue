@@ -68,7 +68,7 @@ export default {
 .event-card {
     border-radius: 30px;
     padding: 5px;
-    background-color: rgba(255, 255, 255, .8);
+    background-color: rgba(255, 255, 255, .5);
 }
 
 .event-image {

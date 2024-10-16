@@ -1,9 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
         <div class="container-fluid">
-            <router-link to="/home">
-                Capharnaüm
-            </router-link>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <router-link @click="logout" to="/login">
