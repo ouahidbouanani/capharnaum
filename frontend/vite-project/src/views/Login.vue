@@ -87,7 +87,7 @@ export default {
         margin-bottom: 25px;
     }
 
-    .btn-create-event {
-        margin-top: 25px;
+    .btn-primary {
+        margin-top: 100px;
     }
 </style>
