@@ -1,3 +1,43 @@
+<template>
+    <v-container class="d-flex flex-column align-center justify-space-between bg-transparent" fluid>
+        <img src="../../public/favicon.png" alt="Capharnaüm Logo" />
+
+        <v-card class="pa-4 bg-transparent elevation-0 w-100">
+            <v-card-title class="text-center pb-5">
+                <h2>Connexion</h2>
+            </v-card-title>
+            <v-card-text>
+                <v-form @submit.prevent="login">
+                    <v-text-field
+                        v-model="email"
+                        label="Email"
+                        type="email"
+                        required
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="password"
+                        label="Mot de passe"
+                        type="password"
+                        required
+                    ></v-text-field>
+                    <v-btn type="submit" color="#3c4798" block>
+                        Me connecter
+                    </v-btn>
+                </v-form>
+                <p v-if="errorMessage" class="text-danger" style="margin-top: 10px; text-align: center;">
+                    {{ errorMessage }}
+                </p>
+            </v-card-text>
+            <v-card-actions class="d-flex justify-center">
+                <v-text class="register-link" @click="navigateToRegister">
+                    Vous n'avez pas de compte ?<br>
+                    Inscrivez-vous ici
+                </v-text>
+            </v-card-actions>
+        </v-card>
+    </v-container>
+</template>
+
 <script>
 import axios from 'axios';
 import { ref } from 'vue';
@@ -20,7 +60,7 @@ export default {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('user', response.data.user);
-                    router.push('/home');
+                    router.push('/explore');
                 } else if (response.status === 201) {
                     errorMessage.value = response.data;
                 }
@@ -36,64 +76,26 @@ export default {
             errorMessage,
             login
         };
-    }
+    },
+    methods: {
+        navigateToRegister() {
+            this.$router.push('/register');
+        },
+    },
 }
 </script>
 
-<template>
-    <div id="logo">
-        <img src="../../public/favicon.png" alt="Capharnaüm Logo">
-    </div>
-
-    <div class="container center-form">
-        <h2 class="text-center">Connexion</h2>
-
-        <form @submit.prevent="login">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" v-model="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="password" v-model="password" required>
-            </div>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Connexion</button>
-            </div>
-        </form>
-        <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
-
-        <router-link to="/register">
-            <p class="text-center mt-3">
-                Vous n'avez pas de compte ? Inscrivez-vous ici
-            </p>
-        </router-link>
-    </div>
-</template>
-
 <style scoped>
-    .center-form {
-        max-width: 80%;
-        margin: 0 auto;
-    }
+img {
+    width: 50px;
+    height: fit-content;
+}
 
-    h2 {
-        margin-bottom: 25px;
-    }
-
-    .btn-primary {
-        margin-top: 100px;
-    }
-
-    div#logo {
-        width: 100%;
-        height: 100px;
-        display: flex;
-        align-items: center;
-    }
-
-    img {
-        width: 50px;
-        margin: auto;
-    }
+.register-link {
+    text-align: center;
+    text-decoration: underline;
+    color: #3c4798;
+    cursor: pointer;
+    position: absolute;
+}
 </style>

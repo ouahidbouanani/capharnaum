@@ -1,3 +1,53 @@
+<template>
+    <v-container class="d-flex flex-column align-center justify-space-between bg-transparent" fluid>
+        <img src="../../public/favicon.png" alt="Capharnaüm Logo" />
+
+        <v-card class="pa-4 bg-transparent elevation-0 w-100">
+            <v-card-title class="text-center pb-5">
+                <h2>Inscription</h2>
+            </v-card-title>
+            <v-card-text>
+                <v-form @submit.prevent="register">
+                    <v-text-field
+                        v-model="prenom"
+                        label="Prénom"
+                        required
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="nom"
+                        label="Nom"
+                        required
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="email"
+                        label="Email"
+                        type="email"
+                        required
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="password"
+                        label="Mot de passe"
+                        type="password"
+                        required
+                    ></v-text-field>
+                    <v-btn type="submit" color="#3c4798" block>
+                        M'inscrire
+                    </v-btn>
+                </v-form>
+                <p v-if="errorMessage" class="text-danger" style="margin-top: 10px; text-align: center;">
+                    {{ errorMessage }}
+                </p>
+            </v-card-text>
+            <v-card-actions class="d-flex justify-center">
+                <v-text class="register-link" @click="navigateToLogin">
+                Vous avez déjà un compte ?<br />
+                Connectez-vous ici
+                </v-text>
+            </v-card-actions>
+        </v-card>
+    </v-container>
+</template>
+
 <script>
 import axios from 'axios';
 import { ref } from 'vue';
@@ -14,20 +64,24 @@ export default {
         const router = useRouter();
 
         const register = async () => {
-            try {
-                const response = await axios.post('http://localhost:5001/api/user/register', {
-                    prenom: prenom.value,
-                    nom: nom.value,
-                    email: email.value,
-                    password: password.value
-                });
-                
-                if (response.status === 201) {
-                    router.push('/login');
-                }
-            } catch (error) {
-                errorMessage.value = error.response?.data?.error || "Une erreur s'est produite.";
+        try {
+            const response = await axios.post('http://localhost:5001/api/user/register', {
+                prenom: prenom.value,
+                nom: nom.value,
+                email: email.value,
+                password: password.value
+            });
+            
+            if (response.status === 201) {
+                router.push('/login');
             }
+        } catch (error) {
+            errorMessage.value = error.response?.data?.error || "Une erreur s'est produite.";
+        }
+        };
+
+        const navigateToLogin = () => {
+            router.push('/login');
         };
 
         return {
@@ -36,75 +90,24 @@ export default {
             email,
             password,
             errorMessage,
-            register
+            register,
+            navigateToLogin
         };
     }
-}
-</script>
-
-<template>
-    <div id="logo">
-        <img src="../../public/favicon.png" alt="Capharnaüm Logo">
-    </div>
-
-    <div class="container center-form">
-        <h2 class="text-center">Inscription</h2>
-
-        <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
-
-        <form @submit.prevent="register">
-            <div class="mb-3">
-                <label for="prenom" class="form-label">Prénom</label>
-                <input type="text" class="form-control" id="prenom" v-model="prenom" required>
-            </div>
-            <div class="mb-3">
-                <label for="nom" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="nom" v-model="nom" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" v-model="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="password" v-model="password" required>
-            </div>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Inscription</button>
-            </div>
-        </form>
-
-        <router-link to="/login" class="d-grid gap-2 back-to-login btn btn-secondary">
-            Retour à la Connexion
-        </router-link>
-    </div>
-</template>
+    }
+    </script>
 
 <style scoped>
-.center-form {
-    max-width: 80%;
-    margin: 0 auto;
-}
-
-.btn-primary {
-    margin-top: 20px;
-}
-
-.back-to-login {
-    margin-top: 10px;
-    background-color: #60a6a0;
-    border: 0;
-}
-
-div#logo {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-}
-
 img {
     width: 50px;
-    margin: auto;
+    height: fit-content;
 }
-</style>
+
+.register-link {
+    text-align: center;
+    text-decoration: underline;
+    color: #3c4798;
+    cursor: pointer;
+    position: absolute;
+}
+</style>  

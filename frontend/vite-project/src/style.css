@@ -12,23 +12,11 @@ button {
   color: white !important;
 }
 
-body {
+.v-main {
   background: linear-gradient(#60a6a0, #3c4798, #2b2d6c, #b94247);
 }
 
-#app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  background: rgba(255, 255, 255, .8); 
-}
-
-.navbar {
-  height: 10%;
-}
-
-.btn-primary {
-  background-color: #2b2d6c;
-  border: none;
+.v-container {
+  height: 100%;
+  background: rgba(255, 255, 255, .8);
 }
