@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <v-container fluid>
+      <v-container fluid class="pa-0">
         <router-view />
         <navbar v-if="shouldShowNavbar" />
       </v-container>
@@ -19,8 +19,8 @@ export default {
   },
   computed: {
     shouldShowNavbar() {
-      const noNavbarRoutes = ['/login', '/register']; // Routes where navbar should be hidden
-      return !noNavbarRoutes.includes(this.$route.path); // Hide navbar for these routes
+      const noNavbarRoutes = ['/login', '/register'];
+      return !noNavbarRoutes.includes(this.$route.path);
     },
   },
 };
