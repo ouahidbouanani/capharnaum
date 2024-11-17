@@ -1,88 +1,93 @@
 <template>
-    <div class="map-wrap">
-        <div class="map" ref="mapContainer"></div>
+    <div id="explore-container">
+        <maptiler 
+            :activities="activities"
+            id="map"
+        />
+        <catalog 
+            :class="{ shown: showCatalog, hidden: !showCatalog }" 
+            id="catalog" 
+            @click="toggleCatalog"    
+        />
     </div>
 </template>
 
 <script>
-import { Map, MapStyle, config } from '@maptiler/sdk';
-import { ref, onMounted, onUnmounted } from 'vue';
-import '@maptiler/sdk/dist/maptiler-sdk.css';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import maptiler from '../components/map.vue';
+import catalog from '../components/catalog.vue';
+import axios from 'axios';
 
 export default {
     name: 'Explore',
+    components: {
+        maptiler,
+        catalog
+    },
     setup() {
-        const mapContainer = ref(null);
-        const map = ref(null);
+        const activities = ref(null);
+        const showCatalog = ref(true);
 
-        onMounted(() => {
-            config.apiKey = '3vtmF9l2ovq2muHn9ogR';
-
-            const getUserLocation = () => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const { latitude, longitude } = position.coords;
-                            map.value = new Map({
-                                container: mapContainer.value,
-                                style: MapStyle.BASIC,
-                                center: [longitude, latitude],
-                                zoom: 14,
-                            });
-                        },
-                        (error) => {
-                            console.error("Erreur de géolocalisation : ", error);
-                            map.value = new Map({
-                                container: mapContainer.value,
-                                style: MapStyle.BASIC,
-                                center: [4.8357, 45.7640], // Coordonnées par défaut (Lyon)
-                                zoom: 14
-                            });
-                        }
-                    );
-                } else {
-                    console.error("La géolocalisation n'est pas supportée par ce navigateur.");
-                    map.value = new Map({
-                        container: mapContainer.value,
-                        style: MapStyle.BASIC,
-                        center: [4.8357, 45.7640], // Coordonnées par défaut (Lyon)
-                        zoom: 14
-                    });
-                }
-            };
-
-            // getUserLocation();
-
-            map.value = new Map({
-                container: mapContainer.value,
-                style: MapStyle.STREETS,
-                geolocate: true
-            });
-        });
-
-        onUnmounted(() => {
-            map.value?.remove();
-        });
-
-        return {
-            mapContainer
+        const toggleCatalog = (event) => {
+            event.stopPropagation();
+            showCatalog.value = !showCatalog.value;
         };
+
+        const handleClickOutside = (event) => {
+            const catalogElement = document.getElementById('catalog');
+            if (catalogElement && !catalogElement.contains(event.target)) {
+                showCatalog.value = false;
+            }
+        };
+
+        onMounted(async () => {
+            document.addEventListener('click', handleClickOutside);
+
+            try {
+                const response = await axios.get('http://localhost:5001/api/activities');
+                
+                if (response.status === 200) {
+                    activities.value = response.data;
+                } else {
+                    console.log("Erreur lors de la récupération des activités");
+                }
+            } catch (error) {
+                console.error("Erreur de connexion ou autre :", error);
+            }
+        });
+
+        onBeforeUnmount(() => {
+            document.removeEventListener('click', handleClickOutside);
+        });
+
+        return { activities, showCatalog, toggleCatalog };
     }
 };
 </script>
 
+
 <style scoped>
 
-.map-wrap {
-  position: relative;
-  width: 100%;
-  height: 100vh;
+#explore-container {
+    position: relative;
 }
 
-.map {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+#catalog {
+    width: 100%;
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, .75);
+    transition: all .5s ease;
+}
+
+#catalog.shown {
+    top: 50%;
+    height: 50%;
+}
+
+#catalog.hidden {
+    top: 80%;
+    height: 20%;
 }
 
 </style>
