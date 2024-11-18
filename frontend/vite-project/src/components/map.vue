@@ -22,17 +22,33 @@ export default {
         const mapContainer = ref(null);
         const map = ref(null);
 
+        const clickOnMarkerWithCoord = (coord) => {
+            map.value.setCenter([coord[0], coord[1]]);
+        };
+
         const addMarker = (coord) => {
             const marker = new Marker({ color: "#FF0000" })
                 .setLngLat([coord[0], coord[1]])
-                .on("click", () => {
-                    console.log("MARKER CLICKED!");
-                    map.value.setCenter([coord[0], coord[1]]);
-                })
                 .addTo(map.value);
 
-            console.log("MARKER JUST CREATED:");
-            console.log(marker.getElement());
+            marker.addClassName("[" + coord.toString() + "]");
+
+            marker.getElement().addEventListener('click', () => {
+                const classList = marker.getElement().classList;
+                let coordString = '';
+                
+                for (let className of classList) {
+                    if (className.startsWith('[') && className.endsWith(']')) {
+                        coordString = className.slice(1, -1);
+                        break;
+                    }
+                }
+
+                if (coordString) {
+                    const coordArray = coordString.split(',').map(Number);
+                    clickOnMarkerWithCoord(coordArray);
+                }
+            });
         };
 
         watch(() => props.activities, (activities) => {
