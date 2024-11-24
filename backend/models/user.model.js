@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema(
+const User = new mongoose.Schema(
   {
     nom: {
       type: String,
@@ -46,20 +46,20 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// userSchema.pre('save', async function(next){
+// User.pre('save', async function(next){
 //   const salt = await bcrypt.genSalt()
 //   this.password = await bcrypt.hash(this.password,salt)
 //   next()
 // })
 
-userSchema.pre("save", async function (next) {
+User.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); // Ne pas hacher si le mot de passe n'est pas modifié
   const salt = await bcrypt.genSalt();
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-userSchema.statics.login = async function (email, password) {
+User.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
   if (user) {
     console.log(user.password);
@@ -73,6 +73,6 @@ userSchema.statics.login = async function (email, password) {
   throw Error("Aucun compte n'est associé à cet email. Nous vous invitons à en créer un.");
 };
 
-const UserModel = mongoose.model("user", userSchema);
+const UserModel = mongoose.model("user", User);
 
 module.exports = UserModel;

@@ -1,5 +1,5 @@
 // Importation du modèle Proposal, qui représente une proposition dans la base de données
-const Proposal = require('../models/proposals.model');
+const Proposal = require('../models/proposal.model');
 
 // Fonction pour créer une nouvelle proposition
 exports.createProposal = async (req, res) => {

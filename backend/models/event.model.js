@@ -2,9 +2,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-// events.model.js
-
-const eventSchema = new mongoose.Schema({
+const Event = new mongoose.Schema({
     label: {
         type: String,
         required: true,
@@ -35,6 +33,6 @@ const eventSchema = new mongoose.Schema({
     },
 });
 
-const eventsModel = mongoose.model("events", eventSchema);
+const eventsModel = mongoose.model("events", Event);
 
 module.exports = eventsModel;

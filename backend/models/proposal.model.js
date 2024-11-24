@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const proposalsSchema = new mongoose.Schema({
+const Proposal = new mongoose.Schema({
   title: {
      type: String,
       required: true
@@ -13,4 +13,4 @@ const proposalsSchema = new mongoose.Schema({
      ref: 'user', required: true }
 });
 
-module.exports = mongoose.model('proposals', proposalsSchema);
+module.exports = mongoose.model('proposals', Proposal);

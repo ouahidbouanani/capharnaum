@@ -1,5 +1,5 @@
 // Importation du modèle Favorite, qui représente les favoris dans la base de données
-const Favorite = require('../models/favorites.model');
+const Favorite = require('../models/favorite.model');
 
 // Fonction pour ajouter un favori
 exports.addFavorite = async (req, res) => {

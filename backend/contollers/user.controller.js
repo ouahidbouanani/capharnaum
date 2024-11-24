@@ -1,9 +1,9 @@
-const UserModel = require('../models/user.model')
-const ObjectId = require('mongoose').Types.ObjectId
+const UserModel = require('../models/user.model');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports.getAllUsers = async (req, res) => {
-    const users = await UserModel.find().select('-password')
-    res.status(201).json(users)
+    const users = await UserModel.find().select('-password');
+    res.status(201).json(users);
 }
 
 module.exports.userInfo = async (req, res) => {
@@ -45,7 +45,9 @@ module.exports.updateUser = async (req, res) => {
 
         res.send(updatedUser);
     } catch (err) {
-        return res.status(500).json({ message: err });
+        return res.status(500).json({ 
+            message: err 
+        });
     }
 };
 
@@ -54,12 +56,16 @@ module.exports.deleteUser = async (req, res) => {
         return res.status(400).send("ID unknown : " + req.params.id);
 
     try {
-        await UserModel.deleteOne({ _id: req.params.id })
-        res.status(200).json({ message: "Successfuly delete" })
+        await UserModel.deleteOne({ _id: req.params.id });
+        res.status(200).json({ 
+            message: "Successfuly delete" 
+        });
     }
     catch (err) {
-        console.log('error' + err)
-        return res.status(500).json({ message: err });
+        console.log('error' + err);
+        return res.status(500).json({ 
+            message: err 
+        });
     }
 
 
