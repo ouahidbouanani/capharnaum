@@ -10,6 +10,7 @@ import AccountProposals from '../views/AccountProposals.vue';
 import ManageActivity from '../views/ManageActivity.vue';
 import ManageProposal from '../views/ManageProposal.vue';
 import Explore from '../views/Explore.vue';
+import Activity from '../views/Activity.vue';
 import Participate from '../views/Participate.vue';
 import CreateActivity from '../views/CreateActivity.vue';
 import CreateProposal from '../views/CreateProposal.vue';
@@ -75,6 +76,13 @@ const routes = [
     path: '/explore',
     name: 'Explore',
     component: Explore,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/activity/:id',
+    name: 'Activity',
+    component: Activity,
+    props: true,
     meta: { requiresAuth: true },
   },
   {

@@ -21,10 +21,19 @@ button {
 }
 
 .v-main {
-  background: linear-gradient(#60a6a0, #3c4798, #2b2d6c, #b94247);
+  background-color: white;
+  /* background: linear-gradient(#60a6a0, #3c4798, #2b2d6c, #b94247); */
 }
 
 .v-container {
   height: 100%;
   background: rgba(255, 255, 255, .8);
+}
+
+.maplibregl-ctrl a {
+  display: none !important;
+}
+
+.v-bottom-navigation {
+  height: 8vh !important;
 }

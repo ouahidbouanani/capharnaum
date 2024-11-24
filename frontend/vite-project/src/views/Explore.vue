@@ -6,6 +6,7 @@
         />
         <catalog 
             :class="{ shown: showCatalog, hidden: !showCatalog }" 
+            :activities="activities"
             id="catalog" 
             @click="toggleCatalog"    
         />
@@ -44,10 +45,11 @@ export default {
             document.addEventListener('click', handleClickOutside);
 
             try {
-                const response = await axios.get('http://localhost:5001/api/activities');
+                const response = await axios.get('http://localhost:5001/api/activity');
                 
                 if (response.status === 200) {
                     activities.value = response.data;
+                    console.log(activities);
                 } else {
                     console.log("Erreur lors de la récupération des activités");
                 }
@@ -83,11 +85,12 @@ export default {
 #catalog.shown {
     top: 50%;
     height: 50%;
+    overflow-y: auto;
 }
 
 #catalog.hidden {
-    top: 80%;
-    height: 20%;
+    top: 89%;
+    height: 11%;
 }
 
 </style>

@@ -24,6 +24,7 @@ export default {
 
         const clickOnMarkerWithCoord = (coord) => {
             map.value.setCenter([coord[0], coord[1]]);
+            map.value.setZoom(map.value.getZoom());
         };
 
         const addMarker = (coord) => {
@@ -54,7 +55,6 @@ export default {
         watch(() => props.activities, (activities) => {
             if (activities && activities.length > 0) {
                 activities.forEach((activity) => {
-                    console.log(activity);
                     (async () => {
                         try {
                             const result = await geocoding.forward(activity.location);
@@ -99,7 +99,7 @@ export default {
 .map-wrap {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 92vh;
 }
 
 .map {
